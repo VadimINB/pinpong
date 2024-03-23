@@ -24,7 +24,7 @@ class GameSprite(sprite.Sprite):
 
 class Player(GameSprite):
     def update_left(self):
-        lkkeys[K_w] and self.rect.y > 0:
+        keys[K_w] and self.rect.y > 0:
             self.rect.y -= self.speed
         if keys [K_s] and self.rect.y + self.rect.height < SCREENSIZE[1]:
             self.rect.y += self.speed
