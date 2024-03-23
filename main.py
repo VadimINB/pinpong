@@ -1,7 +1,7 @@
 from pygame import *
 
 SCREENSIZE = (700, 700)
-BACKCOLOR = (198, 218, 191)
+BACKCOLOR = (255, 255, 255)
 
 window = display.set_mode(SCREENSIZE)
 display.set_caption('ping pong')
