@@ -62,25 +62,39 @@ class Ball(sprite.Sprite):
             return "left"
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
-x = randint(-5,5)
-y = randint(-5,5)
+x = randint(1,6)
+y = randint(1,6)
 
 bal = Ball("ball.png",330,330,x,y,50,50)
 
-platform_left = Player("platform.png",20,350, 6,25,99)
-platform_right = Player("platform.png",660,350,6,25,99)
+finish = False
+
+platform_left = Player("platform.png",20,350, 7,25,99)
+platform_right = Player("platform.png",660,350,7,25,99)
+
+font.init()
+font = font.Font(None,50)
 
 
 while run:
     for e in event.get():
         if e.type == QUIT:
             run = False
-    window.fill(BACKCOLOR)
-    platform_left.reset()
-    platform_right.reset()
-    platform_left.update_left()
-    platform_right.update_right() 
-    bal.reset()
-    bal.update_ball()
+    if finish != True:
+        window.fill(BACKCOLOR)
+        platform_left.reset()
+        platform_right.reset()
+        platform_left.update_left()
+        platform_right.update_right() 
+        bal.reset()
+        bal.update_ball()
+        if bal.who_Loze() == "right":
+            loze = font.render("Rifht LOZE!!!! LOZER",True,(213,32,192))
+            window.blit(loze,(350,20))
+            finish = True
+        if bal.who_Loze() == "left":
+            loze = font.render("left LOZE!!!! LOZER",True,(213,32,192))
+            window.blit(loze,(350,20))
+            finish = True
     display.update()
     timer.tick(60)
