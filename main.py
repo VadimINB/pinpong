@@ -1,7 +1,7 @@
 from pygame import *
 from random import randint
 SCREENSIZE = (700, 700)
-BACKCOLOR = (255, 255, 255)
+BACKCOLOR = (189, 255, 0)
 
 window = display.set_mode(SCREENSIZE)
 display.set_caption('ping pong')
@@ -62,11 +62,18 @@ class Ball(sprite.Sprite):
             return "left"
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
-x = randint(1,6)
-y = randint(1,6)
+    
+class Wall():
+    def __init__(self,x,y,width,height,color):
+        self.rect = Rect(x,y,width,height)
+        self.color = color
+    def draw(self):
+        draw.rect(window,self.color,self.rect)
 
+x = randint(3,6)
+y = randint(2,6)
+wall_1 = Wall(345,0,10,700,(0,178,0))
 bal = Ball("ball.png",330,330,x,y,50,50)
-
 finish = False
 
 platform_left = Player("platform.png",20,350, 7,25,99)
@@ -82,6 +89,8 @@ while run:
             run = False
     if finish != True:
         window.fill(BACKCOLOR)
+        draw.circle(window, (0, 175,0), (345, 345), 150, 10)
+        wall_1.draw()
         platform_left.reset()
         platform_right.reset()
         platform_left.update_left()
@@ -89,11 +98,11 @@ while run:
         bal.reset()
         bal.update_ball()
         if bal.who_Loze() == "right":
-            loze = font.render("Rifht LOZE!!!! LOZER",True,(213,32,192))
+            loze = font.render("Правый проиграл!!!!",True,(213,32,192))
             window.blit(loze,(350,20))
             finish = True
         if bal.who_Loze() == "left":
-            loze = font.render("left LOZE!!!! LOZER",True,(213,32,192))
+            loze = font.render("Левый проиграл!!!!",True,(213,32,192))
             window.blit(loze,(350,20))
             finish = True
     display.update()
