@@ -52,6 +52,7 @@ class Ball(sprite.Sprite):
 
         if sprite.collide_rect(self, platform_left) or sprite.collide_rect(self, platform_right):
             self.speed_x *= -1
+            kick.play()
 
         if self.rect.y < 0 or self.rect.y > SCREENSIZE[1] - self.rect.height:
             self.speed_y *= -1
@@ -83,6 +84,8 @@ font.init()
 font = font.Font(None,50)
 
 
+mixer.init()
+kick = mixer.Sound("ping.ogg.ogg")
 while run:
     for e in event.get():
         if e.type == QUIT:
