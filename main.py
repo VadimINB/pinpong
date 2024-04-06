@@ -1,5 +1,14 @@
 from pygame import *
 from random import randint
+import os
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 SCREENSIZE = (700, 700)
 BACKCOLOR = (189, 255, 0)
 
@@ -13,7 +22,7 @@ run = True
 class GameSprite(sprite.Sprite):
     def __init__ (self, img, x, y, speed, width, height):
         super().__init__()
-        self.image = transform.scale(image.load(img), (width, height))
+        self.image = transform.scale(image.load(resource_path(img)), (width, height))
         self.speed = speed
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -39,7 +48,7 @@ class Player(GameSprite):
 
 class Ball(sprite.Sprite):
     def __init__ (self, img, x, y, speed_x,speed_y, width, height):
-        self.image = transform.scale(image.load(img), (width, height))
+        self.image = transform.scale(image.load(resource_path(img)), (width, height))
         self.speed_x = speed_x
         self.speed_y = speed_y
         self.rect = self.image.get_rect()
@@ -85,7 +94,8 @@ font = font.Font(None,50)
 
 
 mixer.init()
-kick = mixer.Sound("ping.ogg.ogg")
+kick = mixer.Sound(resource_path("ping.ogg"))
+
 while run:
     for e in event.get():
         if e.type == QUIT:
